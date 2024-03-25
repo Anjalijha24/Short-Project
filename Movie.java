@@ -1,4 +1,6 @@
-// Superclass,parentclass Movie
+import java.util.Scanner;
+
+// Superclass Movie
 abstract class Movie {
     private String title;
     private String director;
@@ -23,7 +25,7 @@ abstract class Movie {
     }
 }
 
-// Subclass,childclass ActionMovie
+// Subclass ActionMovie
 class ActionMovie extends Movie {
     private String[] mainActors;
 
@@ -35,20 +37,18 @@ class ActionMovie extends Movie {
 
     // Overriding abstract method
     @Override
-    public void displayDetails()
- {
+    public void displayDetails() {
         System.out.println("Title: " + getTitle());
         System.out.println("Director: " + getDirector());
         System.out.println("Main Actors: ");
-        for (String actor : mainActors)
-       {
+        for (String actor : mainActors) {
             System.out.println("- " + actor);
         }
         System.out.println("Genre: Action");
     }
 }
 
-// Subclass/child class ComedyMovie
+// Subclass ComedyMovie
 class ComedyMovie extends Movie {
     private int laughs;
 
@@ -68,15 +68,41 @@ class ComedyMovie extends Movie {
     }
 }
 
-public class Main {  //main method
+public class Main {  
     public static void main(String[] args) {
-        // Creating objects of subclasses
-        ActionMovie actionMovie = new ActionMovie("Hera Pheri", "Akshay kumar", new String[]{"Rohit Shetty", "Karan Johar"});
-        ComedyMovie comedyMovie = new ComedyMovie("Singham", "Ajay devgan", 100);
+        Scanner scanner = new Scanner(System.in);
 
-        // Polymorphism (Calling displayDetails method on different types of objects)
+        // Taking input for ActionMovie
+        System.out.println("Enter details for Action Movie:");
+        System.out.print("Title: ");
+        String actionTitle = scanner.nextLine();
+        System.out.print("Director: ");
+        String actionDirector = scanner.nextLine();
+        System.out.print("Number of main actors: ");
+        int numActors = Integer.parseInt(scanner.nextLine());
+        String[] actionActors = new String[numActors];
+        for (int i = 0; i < numActors; i++) {
+            System.out.print("Actor " + (i + 1) + ": ");
+            actionActors[i] = scanner.nextLine();
+        }
+        ActionMovie actionMovie = new ActionMovie(actionTitle, actionDirector, actionActors);
+
+        // Taking input for ComedyMovie
+        System.out.println("\nEnter details for Comedy Movie:");
+        System.out.print("Title: ");
+        String comedyTitle = scanner.nextLine();
+        System.out.print("Director: ");
+        String comedyDirector = scanner.nextLine();
+        System.out.print("Number of laughs: ");
+        int laughs = Integer.parseInt(scanner.nextLine());
+        ComedyMovie comedyMovie = new ComedyMovie(comedyTitle, comedyDirector, laughs);
+
+        // Displaying movie details
+        System.out.println("\nAction Movie Details:");
         actionMovie.displayDetails();
-        System.out.println(); 
+        System.out.println("\nComedy Movie Details:");
         comedyMovie.displayDetails();
+
+        scanner.close();
     }
 }
